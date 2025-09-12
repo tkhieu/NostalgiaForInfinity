@@ -180,6 +180,7 @@ if [ "$(printf "%s\n%s" "$LOCAL_VERSION" "$LATEST_VERSION" | sort -V | head -n 1
     # Restart Docker container if docker-compose.yml exists
     if [ -f "$SCRIPT_DIR/../docker-compose.yml" ]; then
         log "Restarting Docker container..."
+        docker compose -f "$SCRIPT_DIR/../docker-compose.yml" pull
         docker compose -f "$SCRIPT_DIR/../docker-compose.yml" down
         docker compose -f "$SCRIPT_DIR/../docker-compose.yml" up -d
         log "Docker container restarted."
