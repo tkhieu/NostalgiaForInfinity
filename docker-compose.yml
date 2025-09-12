@@ -35,3 +35,27 @@ services:
       --db-url sqlite:////freqtrade/user_data/${FREQTRADE__BOT_NAME:-Example_Test_Account}_${FREQTRADE__EXCHANGE__NAME:-binance}_${FREQTRADE__TRADING_MODE:-futures}-tradesv3.sqlite
       --log-file user_data/logs/${FREQTRADE__BOT_NAME:-Example_Test_Account}-${FREQTRADE__EXCHANGE__NAME:-binance}-${FREQTRADE__STRATEGY:-NostalgiaForInfinityX6}-${FREQTRADE__TRADING_MODE:-futures}.log
       --strategy-path .
+    networks:
+      - freqtrade_network # Connect Caddy to a custom network for your services
+
+  caddy:
+    image: caddy:latest # Use the latest official Caddy image
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp" # For HTTP/3
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile # Your Caddy configuration file
+      - caddy_data:/data # Persistent storage for Caddy's data (e.g., certificates)
+      - caddy_config:/config # Persistent storage for Caddy's configuration
+    networks:
+      - freqtrade_network # Connect Caddy to a custom network for your services
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  freqtrade_network:
+    driver: bridge # Or choose a different driver if needed

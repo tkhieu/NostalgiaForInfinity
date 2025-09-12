@@ -1,0 +1,7 @@
+{
+    email tr.kimhieu@gmail.com
+}
+
+freqtrade-api-202509.hieutk.com {
+    reverse_proxy freqtrade:8989
+}
