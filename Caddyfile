@@ -5,3 +5,7 @@
 freqtrade-api-202509.hieutk.com {
     reverse_proxy freqtrade:8989
 }
+
+freqtrade-api-live-nostalgiaforinfinityx6-202509.hieutk.com {
+    reverse_proxy freqtrade:8989
+}
